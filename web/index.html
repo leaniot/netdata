@@ -27,7 +27,7 @@
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="images/seo-performance-16.png"> -->
     <!-- <link rel="icon" type="image/png" sizes="32x32" href="images/seo-performance-32.png"> -->
 
-    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACNklEQVRYhcXXv2tUQRAH8M+FEIJISBHCIWIhIQSUILERi4AiiqCggiIiomAjlhaC4j+ghYWISgqNohZaCBZBC8Ei8QdEUCutFBsxCBqDYkgci/cunkfuJffjJQPD8mZm5/vd2WV2HzlJ0Bs8CvrywsgCHwy+BpGOg0sJfjj4nYKX9FdwKG9gwZlgtgK8pLOpPxfw1mCoCnClDgWtzQTvCEYWCV7SkWAlFBoEb8dlDKBF8t2bMWUSH/AHr3CiEfz5CPUusPJLkRCdk5ZqyeqUrQv4R7E5TwK7M3zTeIKduRAIitiWEfIY69GdCwGcRFuG/xqONRkzkaA7+J5x+MaDtWmHvJ4HgeEM8Nn0bridfv9HoOFyBAdwJCPkqqTzHWwUaz7wgeBHxupfBKuCj2W25mxBsCGYyAB/FxTT27HcPlyep64tCLbjKbqqhLzBlgKfF8pVE4FgRXABI+ioEnYfOyzcFWsCbg+OV+xlpU4ER4O+4HVwL51b3xYEXcGu4Ao+YQhr5gmdxHmsQyfG0b/YxbWmLfRWmnxa0s06VbTMCpnBS9zFzQKTwR5cXCzwHIE02Sl8wSZsRI/kgLVJqjSd+t9LVjiG1diPszhdK3A5gR48k5zYMTwscC59sfT799CYKvA8EttbSeXgTr3gJQKl91kR+yTlvyG5uUbLYh9gb+ovltkb6qYtNSRo3kOygsBSzGlKsubf43USWLYK5CLLXoFWyU/CtzLbVDpW2n+m40yN9ukqdvAX9ac/EIgOapcAAAAASUVORK5CYII=">
+    <link rel="icon" type="image/png" sizes="32x32" href="">
 
     <meta property="og:locale"             content="en_US" />
     <meta property="og:url"                content="https://my-netdata.io" />
@@ -426,7 +426,7 @@
 
         .charts-body {
             width: calc(100% - 213px) !important;
-            padding-left: 1% !important;
+            padding-left: 213px !important;
             padding-right: 0% !important;
         }
 
@@ -448,6 +448,7 @@
         .dashboard-sidebar.affix {
             position: fixed; /* Undo the static from mobile first approach */
             top: 20px;
+            left: 0;
         }
         .dashboard-sidebar.affix-bottom {
             position: absolute; /* Undo the static from mobile first approach */
@@ -466,7 +467,7 @@
 
         .charts-body {
             width: calc(100% - 233px) !important;
-            padding-left: 1% !important;
+            padding-left: 233px !important;
             padding-right: 1% !important;
         }
 
@@ -481,6 +482,12 @@
         .dashboard-sidebar.affix-bottom {
             width: 233px !important;
         }
+
+        .dashboard-sidebar.affix {
+            position: fixed; /* Undo the static from mobile first approach */
+            top: 20px;
+            left: 0;
+        }
     }
 
     @media (min-width: 1360px) {
@@ -490,7 +497,7 @@
 
         .charts-body {
             width: calc(100% - 263px) !important;
-            padding-left: 1% !important;
+            padding-left: 263px !important;
             padding-right: 2% !important;
         }
 
@@ -504,6 +511,11 @@
         .dashboard-sidebar.affix-top,
         .dashboard-sidebar.affix-bottom {
             width: 263px !important;
+        }
+        .dashboard-sidebar.affix {
+            position: fixed; /* Undo the static from mobile first approach */
+            top: 20px;
+            left: 0;
         }
     }
 
@@ -1861,8 +1873,6 @@
                 html += mhead + shtml + '</div></div><hr role="separator"/>';
             }
 
-            sidebar += '<li class="" style="padding-top:15px;"><a href="https://github.com/firehol/netdata/wiki/Add-more-charts-to-netdata" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> add more charts</a></li>';
-            sidebar += '<li class=""><a href="https://github.com/firehol/netdata/wiki/Add-more-alarms-to-netdata" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> add more alarms</a></li>';
             sidebar += '<li class="" style="margin:20px;color:#666;"><small>netdata on <b>' + data.hostname.toString() + '</b>, collects every ' + ((data.update_every === 1)?'second':data.update_every.toString() + ' seconds') + ' <b>' + data.dimensions_count.toLocaleString() + '</b> metrics, presented as <b>' + data.charts_count.toLocaleString() + '</b> charts and monitored by <b>' + data.alarms_count.toLocaleString() + '</b> alarms, using ' + Math.round(data.rrd_memory_bytes / 1024 / 1024).toLocaleString() + ' MB of memory for ' + NETDATA.seconds4human(data.update_every * data.history, { space: '&nbsp;' }) + ' of real-time history.<br/>&nbsp;<br/><b>netdata</b><br/>v' +  data.version.toString() +'</small></li>';
             sidebar += '</ul>';
             div.innerHTML = html;
@@ -4164,10 +4174,7 @@
                     <li id="alarmsButton"><a href="#" class="btn" data-toggle="modal" data-target="#alarmsModal" title="alarms"><i class="fa fa-bell"></i>&nbsp;<span class="hidden-sm hidden-md">Alarms&nbsp;</span><span id="alarms_count_badge" class="badge"></span></a></li>
                     <li><a href="#" class="btn" data-toggle="modal" data-target="#optionsModal" title="dashboard settings"><i class="fa fa-sliders"></i>&nbsp;<span class="hidden-sm hidden-md">Settings</span></a></li>
                     <li class="hidden-sm" id="updateButton"><a href="#" class="btn" data-toggle="modal" data-target="#updateModal" title="check for update"><i class="fa fa-cloud-download"></i> <span class="hidden-sm hidden-md">Update </span><span id="update_badge" class="badge"></span></a></li>
-                    <li class="hidden-sm hidden-md"><a href="https://github.com/firehol/netdata/wiki" class="btn" target="_blank" title="netdata on github"><i class="fa fa-github"></i></a></li>
-                    <li class="hidden-sm hidden-md"><a href="https://twitter.com/linuxnetdata" class="btn" target="_blank" title="netdata on twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                    <li class="hidden-sm hidden-md"><a href="https://www.facebook.com/linuxnetdata/" class="btn" target="_blank" title="netdata on facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-                    <li id="loadButton"><a href="#" class="btn" data-toggle="modal" data-target="#loadSnapshotModal" title="import a dashboard snapshot"><i class="fa fa-download"></i>&nbsp;<span class="hidden-sm hidden-md hidden-lg">Import</span></a></li>
+                   <li id="loadButton"><a href="#" class="btn" data-toggle="modal" data-target="#loadSnapshotModal" title="import a dashboard snapshot"><i class="fa fa-download"></i>&nbsp;<span class="hidden-sm hidden-md hidden-lg">Import</span></a></li>
                     <li id="saveButton"><a href="#" class="btn" data-toggle="modal" data-target="#saveSnapshotModal" title="export a snapshot of this dashboard"><i class="fa fa-upload"></i>&nbsp;<span class="hidden-sm hidden-md hidden-lg">Export</span></a></li>
                     <li id="printButton"><a href="#" class="btn" data-toggle="modal" data-target="#printPreflightModal" title="print this dashboard"><i class="fa fa-print"></i>&nbsp;<span class="hidden-sm hidden-md hidden-lg">Print</span></a></li>
                     <li class="hidden-sm"><a href="#" class="btn" data-toggle="modal" data-target="#helpModal" title="dashboard help"><i class="fa fa-question-circle"></i>&nbsp;<span class="hidden-sm hidden-md">Help</span></a></li>
@@ -4229,8 +4236,7 @@
         <div class="row">
             <div class="col-md-10" role="main">
                 <div class="p">
-                    <big><a href="https://github.com/firehol/netdata/wiki" target="_blank">netdata</a></big><br/>
-                    <i class="fa fa-copyright"></i> Copyright 2016-2017, <a href="mailto:costa@tsaousis.gr">Costa Tsaousis</a>.<br/>
+                    <i class="fa fa-copyright"></i> Copyright 2016-2017<br/>
                     Released under <a href="http://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPL v3 or later</a>.<br/>
                 </div>
                 <div class="p">
